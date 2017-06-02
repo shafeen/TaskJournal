@@ -11,20 +11,28 @@ var TagsAddTagController = function (req, res) {
     var taskId = req.params.task_id;
     var tagDescription = req.body.tag_description;
 
-    var tagId = insertTagIntoTagsArray(tagDescription);
+    var tag = getTagFromDescription(tagDescription);
+    if (tag == null){
+        tag = new Tag(getNextAvailableTagId(), tagDescription);
+        tagsArray.push(tag);
+        res.send('Tag Added Successfully');
+    }else{
+        res.send('Tag Already Exists');
+    }
 
-    console.log(tagsArray);
-    res.send('Tag Added Successfully');
 };
 
 var TagsDeleteTagController = function (req, res) {
     var taskId = req.params.task_id;
     var tagId = req.body.tag_id;
 
-    deleteTagFromTagsArray(tagId);
-
-    console.log(tagsArray);
-    res.send('Tag Deleted Successfully');
+    var tag = getTagFromId(tagId);
+    if (tag != null){
+        deleteTagFromTagsArray(tag);
+        res.send('Tag Deleted Successfully');
+    }else{
+        res.send('Tag Doesn\'t Exist');
+    }
 };
 
 var TagsGetTagsController = function (req, res) {
@@ -33,44 +41,31 @@ var TagsGetTagsController = function (req, res) {
     })
 }
 
-function insertTagIntoTagsArray(description){
-    var tagID;
-    if (tagDescriptionAlreadyExists(description)){
-        tagID = getTagIdForTagDescription(description);
-    }else{
-        tagID = getNextAvailableTagId();
-        tagsArray.push(new Tag(tagID, description));
+function getTagFromDescription(description){
+    var returnValue = null;
+    tagsArray.forEach(function (tag) {
+        if (tag.description == description){
+            returnValue = tag;
+        }
+    })
+    return returnValue;
+}
+
+function getTagFromId(id){
+    var returnValue = null;
+    tagsArray.forEach(function (tag) {
+        if (tag.id == id){
+            returnValue = tag;
+        }
+    })
+    return returnValue;
+}
+
+function deleteTagFromTagsArray(tag){
+    var index = tagsArray.indexOf(tag);
+    if (index >= 0 && index < tagsArray.length){
+        tagsArray.splice(index, 1);
     }
-    return tagID
-}
-
-function deleteTagFromTagsArray(tagId){
-    tagsArray.forEach(function (tag) {
-        if (tag.id == tagId){
-            var index = tagsArray.indexOf(tag);
-            if (index >= 0 && index < tagsArray.length){
-                tagsArray.splice(index, 1);
-            }
-        }
-    })
-}
-
-function tagDescriptionAlreadyExists(description){
-    tagsArray.forEach(function (tag) {
-        if (tag.description == description){
-            return true;
-        }
-    })
-    return false;
-}
-
-function getTagIdForTagDescription(description){
-    tagsArray.forEach(function (tag) {
-        if (tag.description == description){
-            return tag.id;
-        }
-    })
-    return null;
 }
 
 function getNextAvailableTagId(){
