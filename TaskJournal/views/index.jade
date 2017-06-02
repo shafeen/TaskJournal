@@ -1,7 +1,10 @@
 extends layout
 
 block content
-  script(src='/javascripts/test.js')
+  script(src='/javascripts/initialize.js')
 
-  h1= titles
-  p Welcome to #{title}
+  #mainContainer.container
+      .col-lg-8.col-lg-offset-2
+          h1=title
+          p Welcome to our #{title}
+
