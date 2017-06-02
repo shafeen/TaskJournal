@@ -27,6 +27,7 @@ app.use('/users', users);
 
 // all of the folder paths under public will be available via "localhost:3000/"
 app.use(express.static('public'));
+app.use('/bower_components/', express.static('bower_components'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
