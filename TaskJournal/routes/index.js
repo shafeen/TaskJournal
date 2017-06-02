@@ -5,7 +5,7 @@ var SampleDeleteRouteController = require('./route-controllers/SampleRouteContro
 
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/', function(req, res) {
   res.render('index', { title: 'Task Journal' });
 });
 
