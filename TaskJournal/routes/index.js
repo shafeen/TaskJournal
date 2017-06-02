@@ -8,7 +8,7 @@ var TagsDeleteTagController = require('./route-controllers/TagsControllers.js').
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  res.render('index', { title: 'Task Journal' });
 });
 
 router.post('/sample/create', SampleCreateRouteController);
