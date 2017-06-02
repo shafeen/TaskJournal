@@ -4,6 +4,7 @@ var SampleCreateRouteController = require('./route-controllers/SampleRouteContro
 var SampleDeleteRouteController = require('./route-controllers/SampleRouteControllers.js').SampleDeleteRouteController;
 var TagsAddTagController = require('./route-controllers/TagsControllers.js').TagsAddTagController;
 var TagsDeleteTagController = require('./route-controllers/TagsControllers.js').TagsDeleteTagController;
+var TagsGetTagsController = require('./route-controllers/TagsControllers.js').TagsGetTagsController;
 
 
 /* GET home page. */
@@ -16,5 +17,6 @@ router.post('/sample/delete', SampleDeleteRouteController);
 
 router.post('/tags/add_tag/task/:task_id', TagsAddTagController);
 router.post('/tags/delete_tag/task/:task_id', TagsDeleteTagController);
+router.get('/tags', TagsGetTagsController);
 
 module.exports = router;

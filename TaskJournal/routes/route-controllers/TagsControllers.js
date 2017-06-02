@@ -27,6 +27,12 @@ var TagsDeleteTagController = function (req, res) {
     res.send('Tag Deleted Successfully');
 };
 
+var TagsGetTagsController = function (req, res) {
+    res.json({
+        "tagsArray": tagsArray
+    })
+}
+
 function insertTagIntoTagsArray(description){
     var tagID;
     if (tagDescriptionAlreadyExists(description)){
@@ -77,5 +83,6 @@ function getNextAvailableTagId(){
 
 module.exports = {
     TagsAddTagController: TagsAddTagController,
-    TagsDeleteTagController: TagsDeleteTagController
+    TagsDeleteTagController: TagsDeleteTagController,
+    TagsGetTagsController: TagsGetTagsController
 };
