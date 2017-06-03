@@ -5,13 +5,13 @@ class Tag {
     }
 }
 
-var tagsArray = [];
+let tagsArray = [];
 
-var TagsAddTagController = function (req, res) {
-    var taskId = req.params.task_id;
-    var tagDescription = req.body.tag_description;
+let TagsAddTagController = function (req, res) {
+    let taskId = req.params.task_id;
+    let tagDescription = req.body.tag_description;
 
-    var tag = getTagFromDescription(tagDescription);
+    let tag = getTagFromDescription(tagDescription);
     if (tag == null){
         tag = new Tag(getNextAvailableTagId(), tagDescription);
         tagsArray.push(tag);
@@ -22,11 +22,11 @@ var TagsAddTagController = function (req, res) {
 
 };
 
-var TagsDeleteTagController = function (req, res) {
-    var taskId = req.params.task_id;
-    var tagId = req.body.tag_id;
+let TagsDeleteTagController = function (req, res) {
+    let taskId = req.params.task_id;
+    let tagId = req.body.tag_id;
 
-    var tag = getTagFromId(tagId);
+    let tag = getTagFromId(tagId);
     if (tag != null){
         deleteTagFromTagsArray(tag);
         res.send('Tag Deleted Successfully');
@@ -35,34 +35,34 @@ var TagsDeleteTagController = function (req, res) {
     }
 };
 
-var TagsGetTagsController = function (req, res) {
+let TagsGetTagsController = function (req, res) {
     res.json({
         "tagsArray": tagsArray
     })
-}
+};
 
 function getTagFromDescription(description){
-    var returnValue = null;
+    let returnValue = null;
     tagsArray.forEach(function (tag) {
-        if (tag.description == description){
+        if (tag.description == description) {
             returnValue = tag;
         }
-    })
+    });
     return returnValue;
 }
 
 function getTagFromId(id){
-    var returnValue = null;
+    let returnValue = null;
     tagsArray.forEach(function (tag) {
-        if (tag.id == id){
+        if (tag.id == id) {
             returnValue = tag;
         }
-    })
+    });
     return returnValue;
 }
 
 function deleteTagFromTagsArray(tag){
-    var index = tagsArray.indexOf(tag);
+    let index = tagsArray.indexOf(tag);
     if (index >= 0 && index < tagsArray.length){
         tagsArray.splice(index, 1);
     }

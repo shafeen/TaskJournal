@@ -1,15 +1,15 @@
-var express = require('express');
-var router = express.Router();
-var SampleCreateRouteController = require('./route-controllers/SampleRouteControllers.js').SampleCreateRouteController;
-var SampleDeleteRouteController = require('./route-controllers/SampleRouteControllers.js').SampleDeleteRouteController;
-var TagsAddTagController = require('./route-controllers/TagsControllers.js').TagsAddTagController;
-var TagsDeleteTagController = require('./route-controllers/TagsControllers.js').TagsDeleteTagController;
-var TagsGetTagsController = require('./route-controllers/TagsControllers.js').TagsGetTagsController;
-var TaskCreateRouteController = require('./route-controllers/TaskRouteControllers.js').TaskCreateController;
-var TaskDeleteRouteController = require('./route-controllers/TaskRouteControllers.js').TaskDeleteController;
-var TaskModifyRouteController = require('./route-controllers/TaskRouteControllers.js').TaskModifyController;
-var GetTasksController = require('./route-controllers/TaskRouteControllers.js').GetAllTasksController;
-var GetTasksByDateController = require('./route-controllers/TaskRouteControllers.js').GetTasksByDateController;
+let express = require('express');
+let router = express.Router();
+let SampleCreateRouteController = require('./route-controllers/SampleRouteControllers.js').SampleCreateRouteController;
+let SampleDeleteRouteController = require('./route-controllers/SampleRouteControllers.js').SampleDeleteRouteController;
+let TagsAddTagController = require('./route-controllers/TagsControllers.js').TagsAddTagController;
+let TagsDeleteTagController = require('./route-controllers/TagsControllers.js').TagsDeleteTagController;
+let TagsGetTagsController = require('./route-controllers/TagsControllers.js').TagsGetTagsController;
+let TaskCreateRouteController = require('./route-controllers/TaskRouteControllers.js').TaskCreateController;
+let TaskDeleteRouteController = require('./route-controllers/TaskRouteControllers.js').TaskDeleteController;
+let TaskModifyRouteController = require('./route-controllers/TaskRouteControllers.js').TaskModifyController;
+let GetTasksController = require('./route-controllers/TaskRouteControllers.js').GetAllTasksController;
+let GetTasksByDateController = require('./route-controllers/TaskRouteControllers.js').GetTasksByDateController;
 
 
 /* GET home page. */
