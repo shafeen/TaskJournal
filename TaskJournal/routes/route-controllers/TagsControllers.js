@@ -7,14 +7,21 @@ class Tag {
 
 let tagsArray = [];
 
+// GET -- /tags/
+let TagsGetTagsController = function (req, res) {
+    res.json(tagsArray);
+};
+
+// POST -- /tags/add/task/:task_id
 let TagsAddTagController = function (req, res) {
     let taskId = req.params.task_id;
     let tagDescription = req.body.tag_description;
 
     let tag = getTagFromDescription(tagDescription);
-    if (tag == null){
+    if (tag == null) {
         tag = new Tag(getNextAvailableTagId(), tagDescription);
         tagsArray.push(tag);
+        // TODO: we need to add a tag to a task
         res.send('Tag Added Successfully');
     }else{
         res.send('Tag Already Exists');
@@ -22,6 +29,7 @@ let TagsAddTagController = function (req, res) {
 
 };
 
+// POST -- /tags/delete/task/:task_id
 let TagsDeleteTagController = function (req, res) {
     let taskId = req.params.task_id;
     let tagId = req.body.tag_id;
@@ -35,12 +43,7 @@ let TagsDeleteTagController = function (req, res) {
     }
 };
 
-let TagsGetTagsController = function (req, res) {
-    res.json({
-        "tagsArray": tagsArray
-    })
-};
-
+// returns the name of an existing tag id (if one exists)
 function getTagFromDescription(description){
     let returnValue = null;
     tagsArray.forEach(function (tag) {

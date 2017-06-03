@@ -10,9 +10,19 @@ class Task {
         let splitTags = tags.split(' ');
         // add the tags to a list of existing tags
         return splitTags;
-
     }
 
+    addTag(tag) {
+        let exists = false;
+        this.tags.forEach((_tag) => {
+            if (_tag === tag) {
+                exists = true;
+            }
+        });
+        if (!exists) {
+            this.tags.push(tag);
+        }
+    }
 }
 
 let tasks = [];
@@ -40,35 +50,44 @@ let TaskDeleteController = function (req, res) {
     if(taskDeleted) {
         res.send("Task Deleted!");
     } else {
-        res.send("No Task With That Id");
+        res.status(400).send("No Task With That Id");
     }
 };
 
 
 // POST --- /task/modify/
 let TaskModifyController = function (req, res) {
-    let taskModified = false;
-    let modifiedTask = new Task(req.body.taskId, req.body.description, req.body.date, req.body.tags);
-    for(let i=0;i<tasks.length;i++) {
-        if(req.body.taskId == tasks[i].id) {
-            taskModified = true;
-            tasks[i] = modifiedTask;
-        }
-    }
-    
-    if(taskModified) {
-        console.log(modifiedTask);
+    let modifiedNewTask = new Task(req.body.taskId, req.body.description, req.body.date, req.body.tags);
+    let oldTask = getTaskById(req.body.taskId);
+    if (oldTask) {
+        oldTask.description = modifiedNewTask.description;
+        oldTask.tags = modifiedNewTask.tags;
+        console.log(oldTask);
         res.send("Task Modified!");
     } else {
-        res.send("No Task With That Id");
+        res.status(400).send("No Task With That Id");
     }
 };
 
 
 // GET --- /task/
 let GetAllTasksController = function (req, res) {
-    res.json(tasks);
+    res.json(getAllTasks());
 };
+
+function getAllTasks() {
+    return tasks;
+}
+
+function getTaskById(id) {
+    let task = null;
+    for(let i=0;i<tasks.length && task === null;i++) {
+        if(id == tasks[i].id) {
+            task = tasks[i];
+        }
+    }
+    return task;
+}
 
 // GET --- /task/date/:date
 let GetTasksByDateController = function (req, res) {
