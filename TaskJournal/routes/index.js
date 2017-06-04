@@ -13,10 +13,10 @@ router.get('/tags', TagsRouteControllers.TagsGetTagsController);
 router.post('/tags/add/task/:task_id', TagsRouteControllers.TagsAddTagController);
 router.post('/tags/delete/task/:task_id', TagsRouteControllers.TagsDeleteTagController);
 
+router.get('/task', TaskRouteControllers.GetAllTasksController);
 router.post('/task/create', TaskRouteControllers.TaskCreateController);
 router.post('/task/delete', TaskRouteControllers.TaskDeleteController);
 router.post('/task/modify', TaskRouteControllers.TaskModifyController);
-router.get('/task', TaskRouteControllers.GetAllTasksController);
 router.get('/task/date/:date', TaskRouteControllers.GetTasksByDateController);
 
 module.exports = router;
