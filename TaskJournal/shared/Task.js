@@ -13,16 +13,24 @@ class Task {
     }
 
     addTag(tag) {
+        if (!this.containsTag(tag)) {
+            this.tags.push(tag);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    containsTag(tag) {
         let exists = false;
         this.tags.forEach((_tag) => {
             if (_tag === tag) {
                 exists = true;
             }
         });
-        if (!exists) {
-            this.tags.push(tag);
-        }
+        return exists;
     }
+
 }
 
 module.exports = Task;

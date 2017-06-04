@@ -1,9 +1,5 @@
-class Tag {
-    constructor(id, description){
-        this.id = id;
-        this.description = description;
-    }
-}
+const TaskService = require('../../services/TaskService');
+const Tag = require('../../shared/Tag');
 
 let tagsArray = [];
 
@@ -13,24 +9,30 @@ let TagsGetTagsController = function (req, res) {
 };
 
 // POST -- /tags/add/task/:task_id
+// TODO: we need to validate the POST parameters
 let TagsAddTagController = function (req, res) {
     let taskId = req.params.task_id;
     let tagDescription = req.body.tag_description;
-
     let tag = getTagFromDescription(tagDescription);
-    if (tag == null) {
-        tag = new Tag(getNextAvailableTagId(), tagDescription);
+    let newTag = tag === null;
+    tag = tag || new Tag(getNextAvailableTagId(), tagDescription);
+    if (newTag) {
         tagsArray.push(tag);
-        // TODO: we need to add a tag to a task
-        res.send('Tag Added Successfully');
-    }else{
-        res.send('Tag Already Exists');
     }
-
+    let relevantTask = TaskService.getTaskWithId(taskId);
+    if (!relevantTask) {
+        res.status(400).send('No matching task found with that id');
+    } else if (relevantTask.addTag(tag.description)) {
+        // TODO: need to use Tag classes instead of adding strings descriptions directly
+        res.send('Tag Added the task successfully');
+    } else {
+        res.status(400).send('Task already contained that tag.')
+    }
 };
 
 // POST -- /tags/delete/task/:task_id
 let TagsDeleteTagController = function (req, res) {
+    // TODO: we need to be able to delete a tag from an existing task
     let taskId = req.params.task_id;
     let tagId = req.body.tag_id;
 
@@ -43,7 +45,7 @@ let TagsDeleteTagController = function (req, res) {
     }
 };
 
-// returns the name of an existing tag id (if one exists)
+// returns an existing tag (if one exists)
 function getTagFromDescription(description){
     let returnValue = null;
     tagsArray.forEach(function (tag) {

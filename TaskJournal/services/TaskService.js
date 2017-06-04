@@ -19,6 +19,10 @@ function getTasksForDate(dateStr) {
     );
 }
 
+function getTaskWithId(taskId) {
+    return taskIdToTaskMap[taskId];
+}
+
 function datesMatch(requestDate, taskDate) {
     return (requestDate.getYear() == taskDate.getYear() &&
     requestDate.getMonth() == taskDate.getMonth() &&
@@ -46,7 +50,7 @@ function deleteTaskWithId(taskId) {
 
 function updateTaskWithId(taskId, description, date, tags) {
     let modifiedNewTask = new Task(taskId, description, date, tags);
-    let oldTask = taskIdToTaskMap[taskId];
+    let oldTask = getTaskWithId(taskId);
     if (oldTask) {
         oldTask.description = modifiedNewTask.description;
         oldTask.tags = modifiedNewTask.tags;
@@ -59,6 +63,7 @@ function updateTaskWithId(taskId, description, date, tags) {
 module.exports = {
     getTaskList: getTaskList,
     getTasksForDate: getTasksForDate,
+    getTaskWithId: getTaskWithId,
     createNewTask: createNewTask,
     deleteTaskWithId: deleteTaskWithId,
     updateTaskWithId: updateTaskWithId
