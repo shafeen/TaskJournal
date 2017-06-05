@@ -11,7 +11,25 @@ let dateUtil = function () {
 
 function addTaskToList(date, task) {
     let panelListSelector = `${dateUtil.getPanelSelectorForDay(date)} ul`;
-    $(panelListSelector).append($(`<li>${task.description}</li>`));
+    let taskListItem = $(`<li class="list-group-item">${task.description}</li>`);
+    $(panelListSelector).append(taskListItem);
+
+    // adding tags
+    const labelClasses = [
+        'label label-primary',
+        'label label-danger',
+        'label label-info',
+        'label label-success',
+        'label label-default',
+        'label label-warning',
+    ];
+    let currentLabelIdx = new Date().getMilliseconds() % labelClasses.length;
+    task.tags.forEach((tag) => {
+        let currentLabel = labelClasses[currentLabelIdx];
+        currentLabelIdx = (currentLabelIdx+1) % labelClasses.length;
+        taskListItem.append('&nbsp;');
+        taskListItem.append($(`<span class="${currentLabel}">${tag}</span>`));
+    })
 }
 
 $(function () {

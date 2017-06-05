@@ -5,51 +5,51 @@ block content
 
   #mainContainer.container
     .col-lg-8.col-lg-offset-2.col-md-10.col-md-offset-1
-      h1=title
-
+      h1
+        | #{title}
+      h4 #{weekBegins} --- #{weekEnds}
       hr
 
       #day0.panel.panel-default
         .panel-heading Sunday
         .panel-body
-          ul
+          ul.list-group
 
 
       #day1.panel.panel-default
         .panel-heading Monday
-        .panel-body
-          ul
+        ul.panel-body.list-group
 
 
       #day2.panel.panel-default
         .panel-heading Tuesday
         .panel-body
-          ul
+          ul.list-group
 
 
       #day3.panel.panel-default
         .panel-heading Wednesday
         .panel-body
-          ul
+          ul.list-group
 
 
       #day4.panel.panel-default
         .panel-heading Thursday
         .panel-body
-          ul
+          ul.list-group
 
 
       #day5.panel.panel-default
         .panel-heading Friday
         .panel-body
-          ul
+          ul.list-group
 
 
       #day6.panel.panel-default
         .panel-heading Saturday
         .panel-body
           | Add tasks here
-          ul
+          ul.list-group
 
 
 

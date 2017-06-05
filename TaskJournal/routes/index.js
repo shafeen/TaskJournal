@@ -6,7 +6,20 @@ let TaskRouteControllers = require('./route-controllers/TaskRouteControllers.js'
 
 /* GET home page. */
 router.get('/', function(req, res) {
-  res.render('index', { title: 'Task Journal' });
+    let today = new Date();
+    let beginningOfWeek = new Date(today);
+    while (beginningOfWeek.getDay() !== 0) {
+        beginningOfWeek.setDate(beginningOfWeek.getDate() - 1);
+    }
+    let endOfWeek = new Date(today);
+    while (endOfWeek.getDay() !== 6) {
+        endOfWeek.setDate(endOfWeek.getDate() + 1);
+    }
+    res.render('index', {
+        title: 'Task Journal',
+        weekBegins: beginningOfWeek.toDateString(),
+        weekEnds: endOfWeek.toDateString()
+    });
 });
 
 router.get('/tags', TagsRouteControllers.TagsGetTagsController);
